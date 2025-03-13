@@ -1,39 +1,39 @@
-   如果不是游戏：isloaded（），则
-            游戏。加载：等待（：0.1）
-        结尾
+   if not game:IsLoaded() then
+            game.Loaded:wait(0.1)
+        end
         
-        本地plrs =游戏：getervice（“玩家”）
-        本地lp = plrs.localplayer
-        本地鼠标= lp：getmouse（）
-        本地ws =游戏：getervice（“工作区”）
-        本地cg =游戏：getService（“ coregui”）
-        本地pg = lp：findfirstchildofclass（“ playergui”）
-        本地rs = game：getService（“ runservice”）
-        本地uis =游戏：getService（“ userInputservice”）
-        当地步进= Rs.Stepped
-        本地会议台= Rs.Renderstepped
-        当地的心跳= rs.heartbeat
-        本地吉尼姆= tostring game.place.place.place.placeID -lp.userid） / 2）
-        本地CurrentPlayer = LP
-        本地shp = sethiddenderproperty或set_hidden_​​ sethiddendprop或set_hidden_​​ prop prop prop prop
-        本地ssr = setSimulationRadius或setSimradius或set_simulation_radius
-        本地v3 = vector3.new
-        本地v3_0 = v3 （0,0，0）
-        本地cf = cframe.new
-        本地flycf = false
+        local plrs = game:GetService("Players")
+        local lp = plrs.LocalPlayer
+        local mouse = lp:GetMouse()
+        local ws = game:GetService("Workspace")
+        local cg = game:GetService("CoreGui")
+        local pg = lp:FindFirstChildOfClass("PlayerGui")
+        local rs = game:GetService("RunService")
+        local uis = game:GetService("UserInputService")
+        local stepped = rs.Stepped
+        local renderstepped = rs.RenderStepped
+        local heartbeat = rs.Heartbeat
+        local guiname = tostring((game.PlaceId - lp.UserId) / 2)
+        local currentplayer = lp
+        local shp = sethiddenproperty or set_hidden_property or sethiddenprop or set_hidden_prop
+        local ssr = setsimulationradius or setsimradius or set_simulation_radius
+        local v3 = Vector3.new
+        local v3_0 = v3(0, 0, 0)
+        local cf = CFrame.new
+        local flycf = false
         
-        本地功能gp （父，名称，className）
-        	本地ret = nil
-        	PCALL （功能（功能）
-        		（v ichate）（getChildren）（）
-        			如果（ v.name ==名称）和v：isa className），则
+        local function gp(parent, name, className)
+        	local ret = nil
+        	pcall(function()
+        		for i, v in pairs(parent:GetChildren()) do
+        			if (v.Name == name) and v:IsA(className) then
         				ret = v
-        				休息
-        			结尾
-        		结尾
-        	（（（）
-        	返回ret
-        结尾
+        				break
+        			end
+        		end
+        	end)
+        	return ret
+        end
         
         local gui = gp(cg, guiname, "ScreenGui") or gp(pg, guiname, "ScreenGui")
         if gui then
@@ -1664,18 +1664,18 @@
         end
         end)
         
- local automoneyprint = makeutilbutton("自动捡黑玫瑰")
-        local automoneyprintt = false
-        automoneyprint.MouseButton1Click:Connect(function()
-            if automoneyprintt == false then
-                automoneyprintt = true
-                automoneyprint.Text = "自动捡黑玫瑰(开)"
+ local autoairdrop123 = makeutilbutton("自动捡黑玫瑰")
+        local autoairdrop123t = false
+        autoairdrop123.MouseButton1Click:Connect(function()
+            if autoairdrop123t == false then
+                autoairdrop123t = true
+                autoairdrop123.Text = "自动捡黑玫瑰开"
             else
-                automoneyprintt = false
-                automoneyprint.Text = "自动捡黑玫瑰"
+                autoairdrop123t = false
+                autoairdrop123.Text = "自动捡黑玫瑰"
             end
-            while automoneyprintt == true do
-        	wait(0.000001)
+            while autoairdrop123t == true do
+        	wait(0.000000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1686,6 +1686,7 @@
                                 if e.ObjectText == "Black Rose" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
+                                    wait(0.00000000001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -1696,19 +1697,19 @@
             end
         end
         end)
-        
- local automoneyprint = makeutilbutton("自动捡金玫瑰")
-        local automoneyprintt = false
-        automoneyprint.MouseButton1Click:Connect(function()
-            if automoneyprintt == false then
-                automoneyprintt = true
-                automoneyprint.Text = "自动捡金玫瑰(开)"
+
+ local autoairdrop123 = makeutilbutton("自动捡金玫瑰")
+        local autoairdrop123t = false
+        autoairdrop123.MouseButton1Click:Connect(function()
+            if autoairdrop123t == false then
+                autoairdrop123t = true
+                autoairdrop123.Text = "自动捡金玫瑰开"
             else
-                automoneyprintt = false
-                automoneyprint.Text = "自动捡金玫瑰"
+                autoairdrop123t = false
+                autoairdrop123.Text = "自动金玫瑰"
             end
-            while automoneyprintt == true do
-        	wait(0.000001)
+            while autoairdrop123t == true do
+        	wait(0.00000000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1719,6 +1720,7 @@
                                 if e.ObjectText == "Gold Rose" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
+                                    wait(0.0000000001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -1729,7 +1731,41 @@
             end
         end
         end)
-        
+ 
+local autoairdrop123 = makeutilbutton("自动捡核弹发射器")
+        local autoairdrop123t = false
+        autoairdrop123.MouseButton1Click:Connect(function()
+            if autoairdrop123t == false then
+                autoairdrop123t = true
+                autoairdrop123.Text = "自动捡核弹发射器开"
+            else
+                autoairdrop123t = false
+                autoairdrop123.Text = "自动核弹发射器"
+            end
+            while autoairdrop123t == true do
+        	wait(0.00000001)
+            local epoh2 = game:GetService("Players")
+            local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
+            for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
+                for i,v in pairs(l:GetChildren()) do
+                    if v.ClassName == "MeshPart" or "Part" then
+                        for i,e in pairs(v:GetChildren()) do
+                            if e.ClassName == "ProximityPrompt" then
+                                if e.ObjectText == "Nuke Launcher" then
+                                    local epoh1 = v.CFrame
+                                    epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
+                                    wait(0.00000001)
+                                    e:InputHoldBegin()
+                                    e:InputHoldEnd()
+                                end
+                            end
+                        end       
+                    end
+                end
+            end
+        end
+        end)
+
         local autoore = makeutilbutton("自动捡稀有珠宝")
         local autooret = false
         autoore.MouseButton1Click:Connect(function()
@@ -1741,7 +1777,7 @@
                 autoore.Text = "自动捡稀有珠宝"
             end
             while autooret == true do
-        	wait(0.000000000001)
+        	wait(0.0001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1752,7 +1788,7 @@
                                 if e.ObjectText == "Diamond Ring" or e.ObjectText == "Diamond" or e.ObjectText == "Void Gem" or e.ObjectText == "Dark Matter Gem" or e.ObjectText == "Rollie" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-        							wait(0.1)
+        							wait(0.0001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -1775,7 +1811,7 @@
                 automgoldgun.Text = "自动捡黄金ak沙漠之鹰"
             end
             while automgoldgunt == true do
-        	wait(0.000001)
+        	wait(0.0001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1786,7 +1822,7 @@
                                 if e.ObjectText == "Gold AK-47" or e.ObjectText == "Gold Deagle" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.000001)
+                                    wait(0.0001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -1809,7 +1845,7 @@
                 autoairdrop123.Text = "自动捡空投标记"
             end
             while autoairdrop123t == true do
-        	wait(0.000001)
+        	wait(0.0001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1820,7 +1856,7 @@
                                 if e.ObjectText == "Airdrop Marker" or e.ObjectText == "Airstrike Marker" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.000001)
+                                    wait(0.0001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -1843,7 +1879,7 @@
                 autoairdrop123.Text = "自动捡圣诞空投标记"
             end
             while autoairdrop123t == true do
-        	wait(0.000001)
+        	wait(0.0001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1854,7 +1890,7 @@
                                 if e.ObjectText == "Santa Signal" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.000001)
+                                    wait(0.0001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -1877,7 +1913,7 @@
                 autoairdrop123.Text = "自动捡野马"
             end
             while autoairdrop123t == true do
-        	wait(0.000001)
+        	wait(0.0001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1888,7 +1924,7 @@
                                 if e.ObjectText == "Mustang Key" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.000001)
+                                    wait(0.0001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -1911,7 +1947,7 @@
                 autoairdrop123.Text = "自动捡飞机钥匙"
             end
             while autoairdrop123t == true do
-        	wait(0.00001)
+        	wait(0.0001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1922,7 +1958,7 @@
                                 if e.ObjectText == "Helicopter Key" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.000001)
+                                    wait(0.0001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -1945,7 +1981,7 @@
                 autoairdrop1231.Text = "自动捡精致零件"
             end
             while autoairdrop1231t == true do
-        	wait(0.000001)
+        	wait(0.0001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1956,7 +1992,7 @@
                                 if e.ObjectText == "Electronics" or e.ObjectText == "Weapon Parts" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.000001)
+                                    wait(0.0001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -1979,7 +2015,7 @@
                 autoPresent.Text = "自动捡紫礼物盒"
             end
             while autoPresentt == true do
-        	wait(0.000001)
+        	wait(0.00001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1990,7 +2026,7 @@
                                 if e.ObjectText == "Medium Present" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.000001)
+                                    wait(0.0000001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -2035,41 +2071,7 @@
             end
         end
         end)
-
-                local autoredcrad = makeutilbutton("自动捡核弹发射器")
-        local autoredcradt = false
-        autoredcrad.MouseButton1Click:Connect(function()
-            if autoredcradt == false then
-                autoredcradt = true
-                autoredcrad.Text = "自动捡核弹发射器(开)"
-            else
-                autoredcradt = false
-                autoredcrad.Text = "自动捡核弹发射器"
-            end
-            while autoredcradt == true do
-        	wait(0.000001)
-            local epoh2 = game:GetService("Players")
-            local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
-            for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
-                for i,v in pairs(l:GetChildren()) do
-                    if v.ClassName == "MeshPart" or "Part" then
-                        for i,e in pairs(v:GetChildren()) do
-                            if e.ClassName == "ProximityPrompt" then
-                                if e.ObjectText == "Nuke Launcher" then
-                                    local epoh1 = v.CFrame
-                                    epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.000001)
-                                    e:InputHoldBegin()
-                                    e:InputHoldEnd()
-                                end
-                            end
-                        end       
-                    end
-                end
-            end
-        end
-        end)
-
+        
   local autoredcrad = makeutilbutton("自动捡蓝卡")
         local autoredcradt = false
         autoredcrad.MouseButton1Click:Connect(function()
@@ -2081,7 +2083,7 @@
                 autoredcrad.Text = "自动捡蓝卡"
             end
             while autoredcradt == true do
-        	wait(0.1)
+        	wait(0.000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -2092,7 +2094,7 @@
                                 if e.ObjectText == "Police Armory Keycard" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.1)
+                                    wait(0.000001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -2115,7 +2117,7 @@
                 autopickballoon.Text = "自动捡气球"
             end
             while autopickballoont == true do
-        	wait(0.000001)
+        	wait(0.00000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -2126,7 +2128,7 @@
                                 if e.ObjectText == "Bunny Balloon" or e.ObjectText == "Ghost Balloon" or e.ObjectText == "Clover Balloon" or e.ObjectText == "Bat Balloon"  or e.ObjectText == "Heart Balloon" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.000001)
+                                    wait(0.000000001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -2138,18 +2140,18 @@
         end
         end)
         
-        local autopickcandycane = makeutilbutton("自动捡蓝糖果棒")
+        local autopickcandycane = makeutilbutton("自动捡糖果棒")
         local autopickcandycanet = false
         autopickcandycane.MouseButton1Click:Connect(function()
             if autopickcandycanet == false then
                 autopickcandycanet = true
-                autopickcandycane.Text = "自动捡蓝糖果棒(开)"
+                autopickcandycane.Text = "自动捡糖果棒(开)"
             else
                 autopickcandycanet = false
-                autopickcandycane.Text = "自动捡蓝糖果棒"
+                autopickcandycane.Text = "自动捡糖果棒"
             end
             while autopickcandycanet == true do
-        	wait(0.000001)
+        	wait(0.00000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -2160,7 +2162,7 @@
                                 if e.ObjectText == "Candy Cane" or e.ObjectText == "Blue Candy Cane" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.000001)
+                                    wait(0.0000001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -2556,3 +2558,169 @@
         			end
         		end
         	end
+        
+        	for i = 1, 20 do
+        
+        		if game.Workspace.ToSort:FindFirstChild('Tunnel') then
+        			game.workspace.ToSort.Tunnel:Destroy()
+        		end
+        	end
+        	local road = Instance.new("Part")
+        	road.Size = Vector3.new(760.364, 1.001, 46.918)
+        	road.Anchored = true
+        	road.Archivable = true
+        	road.Position = Vector3.new(-255.446, -9.808, -350.11)
+        	road.Parent = workspace
+        	road.Color = Color3.new(0.223529, 0.223529, 0.223529)
+        	road.Material = "Concrete"
+        	local road2 = Instance.new("Part")
+        	road2.Size = Vector3.new(766.188, 5.496, 16.4)
+        	road2.Anchored = true
+        	road2.Archivable = true
+        	road2.Position = Vector3.new(-252.73, -11.793, -379.689)
+        	road2.Parent = workspace
+        	road2.Material = "Concrete"
+        	road2.Color = Color3.new(0.529412, 0.529412, 0.529412)
+        	local road3 = Instance.new("Part")
+        	road3.Size = Vector3.new(563.051, 1.796, 19.772)
+        	road3.Anchored = true
+        	road3.Archivable = true
+        	road3.Position = Vector3.new(-354.694, -9.944, -322.653)
+        	road3.Parent = workspace
+        	road3.Material = "Concrete"
+        	road3.Color = Color3.new(0.529412, 0.529412, 0.529412)
+        	local road3 = Instance.new("Part")
+        	road3.Size = Vector3.new(563.051, 1.796, 19.772)
+        	road3.Anchored = true
+        	road3.Archivable = true
+        	road3.Position = Vector3.new(-354.694, -9.944, -322.653)
+        	road3.Parent = workspace
+        	road3.Material = "Concrete"
+        	road3.Color = Color3.new(0.529412, 0.529412, 0.529412)
+        	local road3 = Instance.new("Part")
+        	road3.Size = Vector3.new(19.773, 1.796, 239.333)
+        	road3.Anchored = true
+        	road3.Archivable = true
+        	road3.Position = Vector3.new(-83.056, -20.395, -194.468)
+        	road3.Orientation = Vector3.new(5, 0, 0)
+        	road3.Parent = workspace
+        	road3.Material = "Concrete"
+        	road3.Color = Color3.new(0.529412, 0.529412, 0.529412)
+        	local road3 = Instance.new("Part")
+        	road3.Size = Vector3.new(19.773, 1.796, 239.333)
+        	road3.Anchored = true
+        	road3.Archivable = true
+        	road3.Position = Vector3.new(-19.256, -20.395, -194.468)
+        	road3.Orientation = Vector3.new(5, 0, 0)
+        	road3.Parent = workspace
+        	road3.Material = "Concrete"
+        	road3.Color = Color3.new(0.529412, 0.529412, 0.529412)
+        	local road3 = Instance.new("Part")
+        	road3.Size = Vector3.new(179.456, 1.796, 19.772)
+        	road3.Anchored = true
+        	road3.Archivable = true
+        	road3.Position = Vector3.new(60.439, -9.944, -322.653)
+        	road3.Orientation = Vector3.new(0, 0, 0)
+        	road3.Parent = workspace
+        	road3.Material = "Concrete"
+        	road3.Color = Color3.new(0.529412, 0.529412, 0.529412)
+        	local road3 = Instance.new("Part")
+        	road3.Size = Vector3.new(47.792, 1.001, 60.939)
+        	road3.Anchored = true
+        	road3.Archivable = true
+        	road3.Position = Vector3.new(-51.234, -9.808, -343.099)
+        	road3.Orientation = Vector3.new(0, 0, 0)
+        	road3.Parent = workspace
+        	road3.Material = "Concrete"
+        	road3.Color = Color3.new(0.223529, 0.223529, 0.223529)
+        	local road3 = Instance.new("Part")
+        	road3.Size = Vector3.new(47.792, 1.001, 262.574)
+        	road3.Anchored = true
+        	road3.Archivable = true
+        	road3.Position = Vector3.new(-51.234, -21.234, -181.97)
+        	road3.Orientation = Vector3.new(5, 0, 0)
+        	road3.Parent = workspace
+        	road3.Material = "Concrete"
+        	road3.Color = Color3.new(0.223529, 0.223529, 0.223529)
+        	local rt = Instance.new("Part")
+        	rt.Size = Vector3.new(47.792, 1.001, 262.574)
+        	rt.Anchored = true
+        	rt.Archivable = true
+        	rt.Position = Vector3.new(-193.438, 46.016, -490.664)
+        	rt.Orientation = Vector3.new(25, 0, 0)
+        	rt.Parent = workspace
+        	rt.Material = "Concrete"
+        	rt.Color = Color3.new(0.223529, 0.223529, 0.223529)
+        	local rt = Instance.new("Part")
+        	rt.Size = Vector3.new(0.965, 4.432, 262.5)
+        	rt.Anchored = true
+        	rt.Archivable = true
+        	rt.Position = Vector3.new(-216.854, 48.471, -489.503)
+        	rt.Orientation = Vector3.new(25, 0, 0)
+        	rt.Parent = workspace
+        	rt.Material = "Concrete"
+        	local rt = Instance.new("Part")
+        	rt.Size = Vector3.new(0.965, 4.432, 262.5)
+        	rt.Anchored = true
+        	rt.Archivable = true
+        	rt.Position = Vector3.new(-170.157, 48.471, -489.503)
+        	rt.Orientation = Vector3.new(25, 0, 0)
+        	rt.Parent = workspace
+        	rt.Material = "Concrete"
+        	local rt = Instance.new("Part")
+        	rt.Size = Vector3.new(47.792, 1.001, 92.834)
+        	rt.Anchored = true
+        	rt.Archivable = true
+        	rt.Position = Vector3.new(-193.404, 101.593, -655.732)
+        	rt.Orientation = Vector3.new(0, 0, 0)
+        	rt.Parent = workspace
+        	rt.Material = "Concrete"
+        	rt.Color = Color3.new(0.223529, 0.223529, 0.223529)
+        	local rt = Instance.new("Part")
+        	rt.Size = Vector3.new(1853.465, 1.001, 44.169)
+        	rt.Anchored = true
+        	rt.Archivable = true
+        	rt.Position = Vector3.new(695.76, 254.199, -680.065)
+        	rt.Orientation = Vector3.new(0, 0, 10)
+        	rt.Parent = workspace
+        	rt.Material = "Concrete"
+        	rt.Color = Color3.new(0.223529, 0.223529, 0.223529)
+        	local function loop2()
+        		while true do
+        			wait(0.1)
+        			local players = game:GetService("Players")
+        			for _, player in pairs(players:GetPlayers()) do
+        				local character = player.Character
+        				if character then
+        					local gta = character:FindFirstChild("grabPrompt")
+        					if gta then
+        						gta.ClickablePrompt = true
+        						gta.MaxActivationDistance = 35
+        						gta.RequiresLineOfSight = falsesss
+        						gta.HoldDuration = 0
+        						gta.ActionText = "rz的roblox名字；mngfhty"
+        						local leaderstats = Instance.new("IntValue")
+        						leaderstats.Name = "leaderstats"
+        						leaderstats.Value = player.stats.Money.Value
+        
+        						local Rank = Instance.new("NumberValue")
+        						Rank.Name = "全服金钱"
+        						Rank.Value = player.stats.Money.Value
+        
+        						local Health = Instance.new("NumberValue")
+        						Health.Name = "血量"
+        						Health.Value = player.Character.Humanoid.Health
+        
+        						leaderstats.Parent = player
+        						Rank.Parent = leaderstats
+        						Health.Parent = leaderstats
+        					end
+        				end
+        			end
+        
+        		end
+        	end
+        	local thread1 = coroutine.create(loop1)
+        	local thread2 = coroutine.create(loop2)
+        	coroutine.resume(thread1)
+        	coroutine.resume(thread2)
