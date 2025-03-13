@@ -2481,17 +2481,17 @@
         game:GetService("Players").LocalPlayer.PlayerGui.Money.Container.premium.Shadow.Visible = false
         game:GetService("Players").LocalPlayer.PlayerGui.Money.Container["2x cash"].Shadow.Visible = false
         game:GetService("Players").LocalPlayer.PlayerGui.Money.Container.premium.Visible = true
-        game:GetService("Players").LocalPlayer.PlayerGui.Money.Container.premium.TextLabel.Text = "rz的roblox名字；dxkwdhax"
+        game:GetService("Players").LocalPlayer.PlayerGui.Money.Container.premium.TextLabel.Text = "rz的roblox名字；mngfhty"
         game:GetService("Players").LocalPlayer.PlayerGui.Money.Container["2x cash"].Visible = true
-        game:GetService("Players").LocalPlayer.PlayerGui.Money.Container["2x cash"].TextLabel.Text = "rz的roblox名字；dxkwdhax"
+        game:GetService("Players").LocalPlayer.PlayerGui.Money.Container["2x cash"].TextLabel.Text = "rz的roblox名字；mngfhty"
         game:GetService("Workspace").BlackMarket.Dealer.Dealer.ProximityPrompt.HoldDuration = 0
         game:GetService("Workspace").BlackMarket.BlackMarketBillboard.TopLabel.Text = "黑市"
         game:GetService("Workspace").BlackMarket.BlackMarketBillboard.BottomLabel.Text = "rz出售物品"
-        game:GetService("Workspace").OhioSign.Screen.SurfaceGui.Frame.Population.Text = "rz的roblox名字；dxkwdhax"
+        game:GetService("Workspace").OhioSign.Screen.SurfaceGui.Frame.Population.Text = "rz的roblox名字；mngfhty"
         
         local Teams = game:GetService("Teams")
         local newTeam = Instance.new("Team")
-        newTeam.Name = "rz的roblox名字；dxkwdhax"
+        newTeam.Name = "rz的roblox名字；mngfhty"
         newTeam.Parent = Teams
         local player = game:GetService("Players").LocalPlayer
         player.Team = newTeam
@@ -2556,169 +2556,3 @@
         			end
         		end
         	end
-        
-        	for i = 1, 20 do
-        
-        		if game.Workspace.ToSort:FindFirstChild('Tunnel') then
-        			game.workspace.ToSort.Tunnel:Destroy()
-        		end
-        	end
-        	local road = Instance.new("Part")
-        	road.Size = Vector3.new(760.364, 1.001, 46.918)
-        	road.Anchored = true
-        	road.Archivable = true
-        	road.Position = Vector3.new(-255.446, -9.808, -350.11)
-        	road.Parent = workspace
-        	road.Color = Color3.new(0.223529, 0.223529, 0.223529)
-        	road.Material = "Concrete"
-        	local road2 = Instance.new("Part")
-        	road2.Size = Vector3.new(766.188, 5.496, 16.4)
-        	road2.Anchored = true
-        	road2.Archivable = true
-        	road2.Position = Vector3.new(-252.73, -11.793, -379.689)
-        	road2.Parent = workspace
-        	road2.Material = "Concrete"
-        	road2.Color = Color3.new(0.529412, 0.529412, 0.529412)
-        	local road3 = Instance.new("Part")
-        	road3.Size = Vector3.new(563.051, 1.796, 19.772)
-        	road3.Anchored = true
-        	road3.Archivable = true
-        	road3.Position = Vector3.new(-354.694, -9.944, -322.653)
-        	road3.Parent = workspace
-        	road3.Material = "Concrete"
-        	road3.Color = Color3.new(0.529412, 0.529412, 0.529412)
-        	local road3 = Instance.new("Part")
-        	road3.Size = Vector3.new(563.051, 1.796, 19.772)
-        	road3.Anchored = true
-        	road3.Archivable = true
-        	road3.Position = Vector3.new(-354.694, -9.944, -322.653)
-        	road3.Parent = workspace
-        	road3.Material = "Concrete"
-        	road3.Color = Color3.new(0.529412, 0.529412, 0.529412)
-        	local road3 = Instance.new("Part")
-        	road3.Size = Vector3.new(19.773, 1.796, 239.333)
-        	road3.Anchored = true
-        	road3.Archivable = true
-        	road3.Position = Vector3.new(-83.056, -20.395, -194.468)
-        	road3.Orientation = Vector3.new(5, 0, 0)
-        	road3.Parent = workspace
-        	road3.Material = "Concrete"
-        	road3.Color = Color3.new(0.529412, 0.529412, 0.529412)
-        	local road3 = Instance.new("Part")
-        	road3.Size = Vector3.new(19.773, 1.796, 239.333)
-        	road3.Anchored = true
-        	road3.Archivable = true
-        	road3.Position = Vector3.new(-19.256, -20.395, -194.468)
-        	road3.Orientation = Vector3.new(5, 0, 0)
-        	road3.Parent = workspace
-        	road3.Material = "Concrete"
-        	road3.Color = Color3.new(0.529412, 0.529412, 0.529412)
-        	local road3 = Instance.new("Part")
-        	road3.Size = Vector3.new(179.456, 1.796, 19.772)
-        	road3.Anchored = true
-        	road3.Archivable = true
-        	road3.Position = Vector3.new(60.439, -9.944, -322.653)
-        	road3.Orientation = Vector3.new(0, 0, 0)
-        	road3.Parent = workspace
-        	road3.Material = "Concrete"
-        	road3.Color = Color3.new(0.529412, 0.529412, 0.529412)
-        	local road3 = Instance.new("Part")
-        	road3.Size = Vector3.new(47.792, 1.001, 60.939)
-        	road3.Anchored = true
-        	road3.Archivable = true
-        	road3.Position = Vector3.new(-51.234, -9.808, -343.099)
-        	road3.Orientation = Vector3.new(0, 0, 0)
-        	road3.Parent = workspace
-        	road3.Material = "Concrete"
-        	road3.Color = Color3.new(0.223529, 0.223529, 0.223529)
-        	local road3 = Instance.new("Part")
-        	road3.Size = Vector3.new(47.792, 1.001, 262.574)
-        	road3.Anchored = true
-        	road3.Archivable = true
-        	road3.Position = Vector3.new(-51.234, -21.234, -181.97)
-        	road3.Orientation = Vector3.new(5, 0, 0)
-        	road3.Parent = workspace
-        	road3.Material = "Concrete"
-        	road3.Color = Color3.new(0.223529, 0.223529, 0.223529)
-        	local rt = Instance.new("Part")
-        	rt.Size = Vector3.new(47.792, 1.001, 262.574)
-        	rt.Anchored = true
-        	rt.Archivable = true
-        	rt.Position = Vector3.new(-193.438, 46.016, -490.664)
-        	rt.Orientation = Vector3.new(25, 0, 0)
-        	rt.Parent = workspace
-        	rt.Material = "Concrete"
-        	rt.Color = Color3.new(0.223529, 0.223529, 0.223529)
-        	local rt = Instance.new("Part")
-        	rt.Size = Vector3.new(0.965, 4.432, 262.5)
-        	rt.Anchored = true
-        	rt.Archivable = true
-        	rt.Position = Vector3.new(-216.854, 48.471, -489.503)
-        	rt.Orientation = Vector3.new(25, 0, 0)
-        	rt.Parent = workspace
-        	rt.Material = "Concrete"
-        	local rt = Instance.new("Part")
-        	rt.Size = Vector3.new(0.965, 4.432, 262.5)
-        	rt.Anchored = true
-        	rt.Archivable = true
-        	rt.Position = Vector3.new(-170.157, 48.471, -489.503)
-        	rt.Orientation = Vector3.new(25, 0, 0)
-        	rt.Parent = workspace
-        	rt.Material = "Concrete"
-        	local rt = Instance.new("Part")
-        	rt.Size = Vector3.new(47.792, 1.001, 92.834)
-        	rt.Anchored = true
-        	rt.Archivable = true
-        	rt.Position = Vector3.new(-193.404, 101.593, -655.732)
-        	rt.Orientation = Vector3.new(0, 0, 0)
-        	rt.Parent = workspace
-        	rt.material =“混凝土”
-        	rt.color = color3.new（0.223529，0.223529，0.223529）
-        	local rt = instance.new（“ part”）
-        	rt.size = vector3.new（1853.465，1.001，44.169）
-        	rt.candord = true
-        	rt.archivable = true
-        	rt.position = vector3.new（695.76，254.199，-680.065）
-        	rt.orientation = vector3.new（0，0，10）
-        	rt.parent =工作区
-        	rt.material =“混凝土”
-        	rt.color = color3.new（0.223529，0.223529，0.223529）
-        	本地函数loop2（）
-        		虽然是真的
-        			等待（0.1）
-        			本地玩家=游戏：getService（“玩家”）
-        			对于_，成对的玩家（玩家：GetPlayers（））做
-        				本地角色=玩家。
-        				如果性格
-        					本地GTA =字符：Findfirstchild（“ GrabPrompt”）
-        					如果GTA
-        						gta.clickable prompt = true
-        						gta.maxactivationDistance = 35
-        						gta.requireslineofsight = falsesss
-        						gta.holdduration = 0
-        						gta.actionText =“ rz的roblox 名字； dxkwdhax”
-        						本地销售巨星=实例。新闻“ intvalue”）
-        						LeaderStats.name =“牵头”
-        						LeaderStats.value = player.stats.money.value
-        
-        						本地级别= instance.new（“ numberValue”）
-        						rank.name =“全服金钱”
-        						rank.value = player.stats.money.value
-        
-        						本地健康= instance.new（“ numberValue”）
-        						health.name =“血量”
-        						health.value = player.character.humanoid.health
-        
-        						LeaderStats.parent = player
-        						rank.parent =铅师
-        						health.parent =副师
-        					结尾
-        				结尾
-        			结尾
-        
-        		结尾
-        	结尾
-        	local thread1 = coroutine.create（loop1）
-        	local thread2 = coroutine.greate（loop2）
-        	coroutine.resume （线程（1）
-        	coroutine.resume（线程2）
