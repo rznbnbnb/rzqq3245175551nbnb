@@ -1,39 +1,39 @@
-   if not game:IsLoaded() then
-            game.Loaded:wait(0.1)
-        end
+   如果不是游戏：isloaded（），则
+            游戏。加载：等待（：0.1）
+        结尾
         
-        local plrs = game:GetService("Players")
-        local lp = plrs.LocalPlayer
-        local mouse = lp:GetMouse()
-        local ws = game:GetService("Workspace")
-        local cg = game:GetService("CoreGui")
-        local pg = lp:FindFirstChildOfClass("PlayerGui")
-        local rs = game:GetService("RunService")
-        local uis = game:GetService("UserInputService")
-        local stepped = rs.Stepped
-        local renderstepped = rs.RenderStepped
-        local heartbeat = rs.Heartbeat
-        local guiname = tostring((game.PlaceId - lp.UserId) / 2)
-        local currentplayer = lp
-        local shp = sethiddenproperty or set_hidden_property or sethiddenprop or set_hidden_prop
-        local ssr = setsimulationradius or setsimradius or set_simulation_radius
-        local v3 = Vector3.new
-        local v3_0 = v3(0, 0, 0)
-        local cf = CFrame.new
-        local flycf = false
+        本地plrs =游戏：getervice（“玩家”）
+        本地lp = plrs.localplayer
+        本地鼠标= lp：getmouse（）
+        本地ws =游戏：getervice（“工作区”）
+        本地cg =游戏：getService（“ coregui”）
+        本地pg = lp：findfirstchildofclass（“ playergui”）
+        本地rs = game：getService（“ runservice”）
+        本地uis =游戏：getService（“ userInputservice”）
+        当地步进= Rs.Stepped
+        本地会议台= Rs.Renderstepped
+        当地的心跳= rs.heartbeat
+        本地吉尼姆= tostring game.place.place.place.placeID -lp.userid） / 2）
+        本地CurrentPlayer = LP
+        本地shp = sethiddenderproperty或set_hidden_​​ sethiddendprop或set_hidden_​​ prop prop prop prop
+        本地ssr = setSimulationRadius或setSimradius或set_simulation_radius
+        本地v3 = vector3.new
+        本地v3_0 = v3 （0,0，0）
+        本地cf = cframe.new
+        本地flycf = false
         
-        local function gp(parent, name, className)
-        	local ret = nil
-        	pcall(function()
-        		for i, v in pairs(parent:GetChildren()) do
-        			if (v.Name == name) and v:IsA(className) then
+        本地功能gp （父，名称，className）
+        	本地ret = nil
+        	PCALL （功能（功能）
+        		（v ichate）（getChildren）（）
+        			如果（ v.name ==名称）和v：isa className），则
         				ret = v
-        				break
-        			end
-        		end
-        	end)
-        	return ret
-        end
+        				休息
+        			结尾
+        		结尾
+        	（（（）
+        	返回ret
+        结尾
         
         local gui = gp(cg, guiname, "ScreenGui") or gp(pg, guiname, "ScreenGui")
         if gui then
