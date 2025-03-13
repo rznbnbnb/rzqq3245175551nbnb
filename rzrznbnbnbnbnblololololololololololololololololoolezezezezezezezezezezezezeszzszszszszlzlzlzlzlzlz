@@ -1642,7 +1642,7 @@
                 automoneyprint.Text = "自动捡印钞机"
             end
             while automoneyprintt == true do
-        	wait(0.000000001)
+        	wait(0.000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1675,7 +1675,7 @@
                 automoneyprint.Text = "自动捡黑玫瑰"
             end
             while automoneyprintt == true do
-        	wait(0.0000000001)
+        	wait(0.000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1708,7 +1708,7 @@
                 automoneyprint.Text = "自动捡金玫瑰"
             end
             while automoneyprintt == true do
-        	wait(0.000000001)
+        	wait(0.000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1775,7 +1775,7 @@
                 automgoldgun.Text = "自动捡黄金ak沙漠之鹰"
             end
             while automgoldgunt == true do
-        	wait(0.00000001)
+        	wait(0.000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1786,7 +1786,7 @@
                                 if e.ObjectText == "Gold AK-47" or e.ObjectText == "Gold Deagle" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.0000001)
+                                    wait(0.000001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -1809,7 +1809,7 @@
                 autoairdrop123.Text = "自动捡空投标记"
             end
             while autoairdrop123t == true do
-        	wait(0.0000001)
+        	wait(0.000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1820,7 +1820,7 @@
                                 if e.ObjectText == "Airdrop Marker" or e.ObjectText == "Airstrike Marker" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.0000001)
+                                    wait(0.000001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -1843,7 +1843,7 @@
                 autoairdrop123.Text = "自动捡圣诞空投标记"
             end
             while autoairdrop123t == true do
-        	wait(0.0000001)
+        	wait(0.000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1854,7 +1854,7 @@
                                 if e.ObjectText == "Santa Signal" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.000000001)
+                                    wait(0.000001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -1877,7 +1877,7 @@
                 autoairdrop123.Text = "自动捡野马"
             end
             while autoairdrop123t == true do
-        	wait(0.000000000001)
+        	wait(0.000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1888,7 +1888,7 @@
                                 if e.ObjectText == "Mustang Key" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.00000001)
+                                    wait(0.000001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -1911,7 +1911,7 @@
                 autoairdrop123.Text = "自动捡飞机钥匙"
             end
             while autoairdrop123t == true do
-        	wait(0.0000001)
+        	wait(0.00001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1922,7 +1922,7 @@
                                 if e.ObjectText == "Helicopter Key" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.0000001)
+                                    wait(0.000001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -1945,7 +1945,7 @@
                 autoairdrop1231.Text = "自动捡精致零件"
             end
             while autoairdrop1231t == true do
-        	wait(0.0000001)
+        	wait(0.000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1979,7 +1979,7 @@
                 autoPresent.Text = "自动捡紫礼物盒"
             end
             while autoPresentt == true do
-        	wait(0.00000001)
+        	wait(0.000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -1990,7 +1990,7 @@
                                 if e.ObjectText == "Medium Present" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.0000000001)
+                                    wait(0.000001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -2013,7 +2013,7 @@
                 autoredcrad.Text = "自动捡红卡"
             end
             while autoredcradt == true do
-        	wait(0.000000001)
+        	wait(0.00001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -2024,7 +2024,7 @@
                                 if e.ObjectText == "Military Armory Keycard" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.00000001)
+                                    wait(0.00001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -2047,7 +2047,7 @@
                 autoredcrad.Text = "自动捡核弹发射器"
             end
             while autoredcradt == true do
-        	wait(0.0000000000000001)
+        	wait(0.000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -2058,7 +2058,7 @@
                                 if e.ObjectText == "Nuke Launcher" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.000000001)
+                                    wait(0.000001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -2115,7 +2115,7 @@
                 autopickballoon.Text = "自动捡气球"
             end
             while autopickballoont == true do
-        	wait(0.00000001)
+        	wait(0.000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -2126,7 +2126,7 @@
                                 if e.ObjectText == "Bunny Balloon" or e.ObjectText == "Ghost Balloon" or e.ObjectText == "Clover Balloon" or e.ObjectText == "Bat Balloon"  or e.ObjectText == "Heart Balloon" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.0000001)
+                                    wait(0.000001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -2149,7 +2149,7 @@
                 autopickcandycane.Text = "自动捡蓝糖果棒"
             end
             while autopickcandycanet == true do
-        	wait(0.0000000001)
+        	wait(0.000001)
             local epoh2 = game:GetService("Players")
             local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
             for i,l in pairs(game:GetService("Workspace").Game.Entities.ItemPickup:GetChildren()) do
@@ -2157,10 +2157,10 @@
                     if v.ClassName == "MeshPart" or "Part" then
                         for i,e in pairs(v:GetChildren()) do
                             if e.ClassName == "ProximityPrompt" then
-                                if e.ObjectText == "Blue Candy Cane" or e.ObjectText == "Blue Candy Cane" then
+                                if e.ObjectText == "Candy Cane" or e.ObjectText == "Blue Candy Cane" then
                                     local epoh1 = v.CFrame
                                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                                    wait(0.00000000000001)
+                                    wait(0.000001)
                                     e:InputHoldBegin()
                                     e:InputHoldEnd()
                                 end
@@ -2235,7 +2235,7 @@
                 BankDoor.Door.Attachment.ProximityPrompt.MaxActivationDistance = 20
                 local epoh1 = CFrame.new(1071.955810546875, 9, -343.80816650390625)
                 epoh3.CFrame = epoh1
-                wait(0.00003)
+                wait(0.3)
                 BankDoor.Door.Attachment.ProximityPrompt:InputHoldBegin()
         		BankDoor.Door.Attachment.ProximityPrompt:InputHoldEnd()
             end
@@ -2264,7 +2264,7 @@
                     local epoh2 = game:GetService("Players")
                     local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                    wait(0.00001)
+                    wait(0.1)
                     model.Door["Meshes/LargeSafe1_Cube.002_Cube.003_None (3)"].Attachment.ProximityPrompt:InputHoldBegin()
                     model.Door["Meshes/LargeSafe1_Cube.002_Cube.003_None (3)"].Attachment.ProximityPrompt:InputHoldEnd()
                     break
@@ -2279,7 +2279,7 @@
                     local epoh2 = game:GetService("Players")
                     local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
-                    wait(0.00000001)
+                    wait(0.1)
                     model.Lock["Meshes/untitled_chest.002_Material.009 (4)"].Attachment.ProximityPrompt:InputHoldBegin()
                     model.Lock["Meshes/untitled_chest.002_Material.009 (4)"].Attachment.ProximityPrompt:InputHoldEnd()
                     break
@@ -2295,7 +2295,7 @@
                     local epoh3 = epoh2.LocalPlayer.Character.HumanoidRootPart
                     epoh3.CFrame = epoh1 * CFrame.new(0, 2, 0)
                     SmallSaf.SmallSafe.Door["Meshes/Safe1_Cube.002_Cube.003_None (1)"].Attachment.ProximityPrompt.HoldDuration = 0
-                    wait(0.00001)
+                    wait(0.1)
                     SmallSaf.SmallSafe.Door["Meshes/Safe1_Cube.002_Cube.003_None (1)"].Attachment.ProximityPrompt:InputHoldBegin()
                     SmallSaf.SmallSafe.Door["Meshes/Safe1_Cube.002_Cube.003_None (1)"].Attachment.ProximityPrompt:InputHoldEnd()
                     break
@@ -2590,114 +2590,114 @@
         	local road3 = Instance.new("Part")
         	road3.Size = Vector3.new(563.051, 1.796, 19.772)
         	road3.Anchored = true
-        	Road3.archivable = true
-        	road3.position = vector3.new（-354.694，-9.944，-322.653）354.694, -9.944, -322.653)
-        	Road3.Parent =工作区
-        	Road3.Material =“混凝土”"Concrete"
-        	Road3.Color = Color3.New（0.529412，0.529412，0.529412）0.529412, 0.529412, 0.529412)
-        	本地Road3 = instance.new（“ part”）"Part")
-        	road3.size = vector3.new（19.773，1.796，239.333）19.773, 1.796, 239.333)
-        	Road3.Chandord = true
-        	Road3.archivable = true
-        	road3.position = vector3.new（-83.056，-20.395，-194.468）83.056, -20.395, -194.468)
-        	ROAD3.ERIENTATION = vector3.new（5，0，0）5, 0, 0)
-        	Road3.Parent =工作区
-        	Road3.Material =“混凝土”"Concrete"
-        	Road3.Color = Color3.New（0.529412，0.529412，0.529412）0.529412, 0.529412, 0.529412)
-        	本地Road3 = instance.new（“ part”）"Part")
-        	road3.size = vector3.new（19.773，1.796，239.333）19.773, 1.796, 239.333)
-        	Road3.Chandord = true
-        	Road3.archivable = true
-        	road3.position = vector3.new（-19.256，-20.395，-194.468）19.256, -20.395, -194.468)
-        	ROAD3.ERIENTATION = vector3.new（5，0，0）5, 0, 0)
-        	Road3.Parent =工作区
-        	Road3.Material =“混凝土”"Concrete"
-        	Road3.Color = Color3.New（0.529412，0.529412，0.529412）0.529412, 0.529412, 0.529412)
-        	本地Road3 = instance.new（“ part”）"Part")
-road3.size         	= vector3.new（179.456，1.796，19.772）​179.456，1.796，19.772）​​​​
-        	Road3.Chandord = true
-        	Road3.archivable = true
-        	road3.position = vector3.new（60.439，-9.944，-322.653）60.439, -9.944, -322.653)
-        	ROAD3.ERIENTATION = vector3.new（0，0，0）0, 0, 0)
-        	Road3.Parent =工作区
-        	Road3.Material =“混凝土”"Concrete"
-        	Road3.Color = Color3.New（0.529412，0.529412，0.529412）0.529412, 0.529412, 0.529412)
-        	本地Road3 = instance.new（“ part”）"Part")
-        	road3.size = vector3.new（47.792，1.001，60.939）47.792, 1.001, 60.939)
-        	Road3.Chandord = true
-        	Road3.archivable = true
-        	road3.position = vector3.new（-51.234，-9.808，-343.099）51.234, -9.808, -343.099)
-        	ROAD3.ERIENTATION = vector3.new（0，0，0）0, 0, 0)
-        	Road3.Parent =工作区
-        	Road3.Material =“混凝土”"Concrete"
-        	Road3.Color = Color3.New（0.223529，0.223529，0.223529）0.223529, 0.223529, 0.223529)
-        	本地Road3 = instance.new（“ part”）"Part")
-        	road3.size = vector3.new（47.792，1.001，262.574）47.792, 1.001, 262.574)
-        	Road3.Chandord = true
-        	Road3.archivable = true
-        	road3.position = vector3.new（-51.234，-21.234，-181.97）51.234, -21.234, -181.97)
-        	ROAD3.ERIENTATION = vector3.new（5，0，0）5, 0, 0)
-        	Road3.Parent =工作区
-        	Road3.Material =“混凝土”"Concrete"
-        	Road3.Color = Color3.New（0.223529，0.223529，0.223529）0.223529, 0.223529, 0.223529)
-        	local rt = instance.new（“ part”）"Part")
-        	rt.size = vector3.new（47.792，1.001，262.574）47.792, 1.001, 262.574)
-        	rt.candord = true
-        	rt.archivable = true
-        	rt.position = vector3.new（-193.438，46.016，-490.664）193.438, 46.016, -490.664)
-        	rt.orientation = vector3.new（25，0，0）25, 0, 0)
-        	rt.parent =工作区
-        	rt.material =“混凝土”"Concrete"
-        	rt.color = color3.new（0.223529，0.223529，0.223529）0.223529, 0.223529, 0.223529)
-        	local rt = instance.new（“ part”）"Part")
-        	rt.size = vector3.new（0.965，4.432，262.5）0.965, 4.432, 262.5)
-        	rt.candord = true
-        	rt.archivable = true
-        	rt.position = vector3.new（-216.854，48.471，-489.503）216.854, 48.471, -489.503)
-        	rt.orientation = vector3.new（25，0，0）25, 0, 0)
-        	rt.parent =工作区
-        	rt.material =“混凝土”"Concrete"
-        	local rt = instance.new（“ part”）"Part")
-        	rt.size = vector3.new（0.965，4.432，262.5）0.965, 4.432, 262.5)
-        	rt.candord = true
-        	rt.archivable = true
-        	rt.position = vector3.new（-170.157，48.471，-489.503）170.157, 48.471, -489.503)
-        	rt.orientation = vector3.new（25，0，0）25, 0, 0)
-        	rt.parent =工作区
-        	rt.material =“混凝土”"Concrete"
-        	local rt = instance.new（“ part”）"Part")
-        	rt.size = vector3.new（47.792，1.001，92.834）47.792，1.001，92.834）​​
+        	road3.Archivable = true
+        	road3.Position = Vector3.new(-354.694, -9.944, -322.653)
+        	road3.Parent = workspace
+        	road3.Material = "Concrete"
+        	road3.Color = Color3.new(0.529412, 0.529412, 0.529412)
+        	local road3 = Instance.new("Part")
+        	road3.Size = Vector3.new(19.773, 1.796, 239.333)
+        	road3.Anchored = true
+        	road3.Archivable = true
+        	road3.Position = Vector3.new(-83.056, -20.395, -194.468)
+        	road3.Orientation = Vector3.new(5, 0, 0)
+        	road3.Parent = workspace
+        	road3.Material = "Concrete"
+        	road3.Color = Color3.new(0.529412, 0.529412, 0.529412)
+        	local road3 = Instance.new("Part")
+        	road3.Size = Vector3.new(19.773, 1.796, 239.333)
+        	road3.Anchored = true
+        	road3.Archivable = true
+        	road3.Position = Vector3.new(-19.256, -20.395, -194.468)
+        	road3.Orientation = Vector3.new(5, 0, 0)
+        	road3.Parent = workspace
+        	road3.Material = "Concrete"
+        	road3.Color = Color3.new(0.529412, 0.529412, 0.529412)
+        	local road3 = Instance.new("Part")
+        	road3.Size = Vector3.new(179.456, 1.796, 19.772)
+        	road3.Anchored = true
+        	road3.Archivable = true
+        	road3.Position = Vector3.new(60.439, -9.944, -322.653)
+        	road3.Orientation = Vector3.new(0, 0, 0)
+        	road3.Parent = workspace
+        	road3.Material = "Concrete"
+        	road3.Color = Color3.new(0.529412, 0.529412, 0.529412)
+        	local road3 = Instance.new("Part")
+        	road3.Size = Vector3.new(47.792, 1.001, 60.939)
+        	road3.Anchored = true
+        	road3.Archivable = true
+        	road3.Position = Vector3.new(-51.234, -9.808, -343.099)
+        	road3.Orientation = Vector3.new(0, 0, 0)
+        	road3.Parent = workspace
+        	road3.Material = "Concrete"
+        	road3.Color = Color3.new(0.223529, 0.223529, 0.223529)
+        	local road3 = Instance.new("Part")
+        	road3.Size = Vector3.new(47.792, 1.001, 262.574)
+        	road3.Anchored = true
+        	road3.Archivable = true
+        	road3.Position = Vector3.new(-51.234, -21.234, -181.97)
+        	road3.Orientation = Vector3.new(5, 0, 0)
+        	road3.Parent = workspace
+        	road3.Material = "Concrete"
+        	road3.Color = Color3.new(0.223529, 0.223529, 0.223529)
+        	local rt = Instance.new("Part")
+        	rt.Size = Vector3.new(47.792, 1.001, 262.574)
+        	rt.Anchored = true
+        	rt.Archivable = true
+        	rt.Position = Vector3.new(-193.438, 46.016, -490.664)
+        	rt.Orientation = Vector3.new(25, 0, 0)
+        	rt.Parent = workspace
+        	rt.Material = "Concrete"
+        	rt.Color = Color3.new(0.223529, 0.223529, 0.223529)
+        	local rt = Instance.new("Part")
+        	rt.Size = Vector3.new(0.965, 4.432, 262.5)
+        	rt.Anchored = true
+        	rt.Archivable = true
+        	rt.Position = Vector3.new(-216.854, 48.471, -489.503)
+        	rt.Orientation = Vector3.new(25, 0, 0)
+        	rt.Parent = workspace
+        	rt.Material = "Concrete"
+        	local rt = Instance.new("Part")
+        	rt.Size = Vector3.new(0.965, 4.432, 262.5)
+        	rt.Anchored = true
+        	rt.Archivable = true
+        	rt.Position = Vector3.new(-170.157, 48.471, -489.503)
+        	rt.Orientation = Vector3.new(25, 0, 0)
+        	rt.Parent = workspace
+        	rt.Material = "Concrete"
+        	local rt = Instance.new("Part")
+        	rt.Size = Vector3.new(47.792, 1.001, 92.834)
         	rt.Anchored = true
         	rt.Archivable = true
         	rt.Position = Vector3.new(-193.404, 101.593, -655.732)
         	rt.Orientation = Vector3.new(0, 0, 0)
         	rt.Parent = workspace
-        	rt.Material = "Concrete"
-        	rt.color = color3.new（0.223529，0.223529，0.223529）​​​​
+        	rt.material =“混凝土”
+        	rt.color = color3.new（0.223529，0.223529，0.223529）
         	local rt = instance.new（“ part”）
-        	rt.size = vector3.new（1853.465，1.001，44.169）​​​​
+        	rt.size = vector3.new（1853.465，1.001，44.169）
         	rt.candord = true
         	rt.archivable = true
-        	rt.position = vector3.new（695.76，254.199，-680.065）​​
-        	rt.orientation = vector3.new（0，0，10）​​​​
+        	rt.position = vector3.new（695.76，254.199，-680.065）
+        	rt.orientation = vector3.new（0，0，10）
         	rt.parent =工作区
         	rt.material =“混凝土”
-        	rt.color = color3.new（0.223529，0.223529，0.223529）​​​​
+        	rt.color = color3.new（0.223529，0.223529，0.223529）
         	本地函数loop2（）
         		虽然是真的
-        			等待（（0.1）
+        			等待（0.1）
         			本地玩家=游戏：getService（“玩家”）
         			对于_，成对的玩家（玩家：GetPlayers（））做
         				本地角色=玩家。
         				如果性格
-        					本地gta =字符：findfirstchild（“ grabprompt”）
-        					如果gta
-        						gta.clickable提示= true
+        					本地GTA =字符：Findfirstchild（“ GrabPrompt”）
+        					如果GTA
+        						gta.clickable prompt = true
         						gta.maxactivationDistance = 35
         						gta.requireslineofsight = falsesss
         						gta.holdduration = 0
         						gta.actionText =“ rz的roblox 名字； dxkwdhax”
-        						本地销售巨星=实例。新闻（“ intvalue”）
+        						本地销售巨星=实例。新闻“ intvalue”）
         						LeaderStats.name =“牵头”
         						LeaderStats.value = player.stats.money.value
         
@@ -2718,7 +2718,7 @@ road3.size         	= vector3.new（179.456，1.796，19.772）​179.456，1.79
         
         		结尾
         	结尾
-        	local thread1 = coroutine.greate（loop1）
+        	local thread1 = coroutine.create（loop1）
         	local thread2 = coroutine.greate（loop2）
         	coroutine.resume （线程（1）
         	coroutine.resume（线程2）
