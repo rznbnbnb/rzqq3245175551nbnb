@@ -1,7 +1,5 @@
--- Ohio 服务器自动采集脚本 - 优化版
+-- Ohio 服务器自动采集脚本 - 修复循环版
 -- 自动换服 → 捡物品 → 换服 → 循环
-
--- 初始化服务
 local Players = game:GetService("Players")
 local TeleportService = game:GetService("TeleportService")
 local RunService = game:GetService("RunService")
@@ -18,15 +16,16 @@ local localPlayer = Players.LocalPlayer
 local CONFIG = {
     SEARCH_RADIUS = 2000,          -- 最大搜索半径
     TELEPORT_DELAY = 0.5,          -- 传送延迟
-    SERVER_HOP_DELAY = 3,          -- 换服延迟
+    SERVER_HOP_DELAY = 1,          -- 换服延迟
     ITEM_PICKUP_DELAY = 1,         -- 捡物品后等待时间
     MAX_RETRY_ATTEMPTS = 5,        -- 最大重试次数
     RETRY_DELAY = 2,               -- 重试延迟
     E_KEY_PRESS_DURATION = 0.2,    -- E键按下持续时间
-    E_KEY_PRESS_COUNT = 3          -- E键按下次数
+    E_KEY_PRESS_COUNT = 3,         -- E键按下次数
+    MAX_SERVER_PLAYERS = 15        -- 最大服务器人数（避免人多的服务器）
 }
 
--- 目标物品列表（根据您提供的列表）
+-- 目标物品列表
 local TARGET_ITEMS = {
     "Money Printer",
     "Blue Candy Care",
@@ -45,6 +44,12 @@ local TARGET_ITEMS = {
     "Rollie"
 }
 
+-- 创建物品名称映射表（提高搜索效率）
+local itemMap = {}
+for _, itemName in ipairs(TARGET_ITEMS) do
+    itemMap[itemName:lower()] = true
+end
+
 -- 状态变量
 local isRunning = true
 local character = nil
@@ -54,6 +59,7 @@ local notificationGui = nil
 local notificationLabel = nil
 local stopButton = nil
 local retryCount = 0
+local currentServerId = game.JobId -- 当前服务器ID
 
 -- 创建UI界面
 local function createUI()
@@ -141,6 +147,7 @@ local function updateNotification(text)
     if notificationLabel then
         notificationLabel.Text = tostring(text)
     end
+    print("[INFO] " .. tostring(text))
 end
 
 -- 安全等待角色加载
@@ -156,7 +163,7 @@ local function waitForCharacter()
                 return true
             end
         end
-        wait(0.5)
+        task.wait(0.5)
     end
     return false
 end
@@ -164,7 +171,7 @@ end
 -- 模拟按键按下
 local function simulateKeyPress(keyCode, duration)
     VirtualInputManager:SendKeyEvent(true, keyCode, false, nil)
-    wait(duration or 0.1)
+    task.wait(duration or 0.1)
     VirtualInputManager:SendKeyEvent(false, keyCode, false, nil)
 end
 
@@ -173,7 +180,7 @@ local function simulateMultipleKeyPress(keyCode, count, delay)
     for i = 1, count do
         simulateKeyPress(keyCode, CONFIG.E_KEY_PRESS_DURATION)
         if delay and delay > 0 then
-            wait(delay)
+            task.wait(delay)
         end
     end
 end
@@ -192,14 +199,14 @@ local function safeTeleportToItem(item)
     end)
     
     if success then
-        wait(CONFIG.TELEPORT_DELAY)
+        task.wait(CONFIG.TELEPORT_DELAY)
         return true
     end
     
     return false
 end
 
--- 改进的物品查找函数（最大搜索半径）
+-- 改进的物品查找函数
 local function findTargetItem()
     if not humanoidRootPart then return nil end
     
@@ -207,16 +214,14 @@ local function findTargetItem()
     local closestItem = nil
     local closestDistance = CONFIG.SEARCH_RADIUS
     
-    -- 优先搜索Workspace的直接子级（提高性能）
+    -- 使用区域搜索提高效率
     for _, item in ipairs(Workspace:GetChildren()) do
         if item:IsA("BasePart") or item:IsA("MeshPart") or item:IsA("Part") then
-            for _, targetName in ipairs(TARGET_ITEMS) do
-                if item.Name:lower():find(targetName:lower()) then
-                    local distance = (item.Position - currentPosition).Magnitude
-                    if distance < closestDistance then
-                        closestItem = item
-                        closestDistance = distance
-                    end
+            if itemMap[item.Name:lower()] then
+                local distance = (item.Position - currentPosition).Magnitude
+                if distance < closestDistance then
+                    closestItem = item
+                    closestDistance = distance
                 end
             end
         end
@@ -226,13 +231,11 @@ local function findTargetItem()
     if not closestItem then
         for _, item in ipairs(Workspace:GetDescendants()) do
             if (item:IsA("BasePart") or item:IsA("MeshPart") or item:IsA("Part")) and item.Name then
-                for _, targetName in ipairs(TARGET_ITEMS) do
-                    if item.Name:lower():find(targetName:lower()) then
-                        local distance = (item.Position - currentPosition).Magnitude
-                        if distance < closestDistance then
-                            closestItem = item
-                            closestDistance = distance
-                        end
+                if itemMap[item.Name:lower()] then
+                    local distance = (item.Position - currentPosition).Magnitude
+                    if distance < closestDistance then
+                        closestItem = item
+                        closestDistance = distance
                     end
                 end
             end
@@ -249,23 +252,53 @@ local function interactWithEKey()
     return true
 end
 
--- 获取服务器列表（简化版）
+-- 获取服务器列表（使用Roblox API）
 local function getServerList()
-    -- 使用模拟服务器列表（避免HTTP请求问题）
-    local servers = {}
-    for i = 1, 10 do
-        table.insert(servers, {
-            id = "Server_" .. tostring(i),
-            playing = math.random(5, 25)
-        })
-    end
-    
-    -- 按玩家数量排序
-    table.sort(servers, function(a, b)
-        return a.playing < b.playing
+    local success, result = pcall(function()
+        -- 使用Roblox API获取服务器列表
+        local gameId = game.PlaceId
+        local url = "https://games.roblox.com/v1/games/" .. gameId .. "/servers/Public?sortOrder=Asc&limit=100"
+        
+        local response = game:HttpGetAsync(url)
+        local data = HttpService:JSONDecode(response)
+        
+        local servers = {}
+        for _, server in ipairs(data.data) do
+            if server.playing < CONFIG.MAX_SERVER_PLAYERS and server.id ~= currentServerId then
+                table.insert(servers, {
+                    id = server.id,
+                    playing = server.playing
+                })
+            end
+        end
+        
+        -- 按玩家数量排序
+        table.sort(servers, function(a, b)
+            return a.playing < b.playing
+        end)
+        
+        return servers
     end)
     
-    return servers
+    if not success then
+        updateNotification("获取服务器列表失败，使用备用方案")
+        -- 备用方案：返回模拟服务器列表
+        local servers = {}
+        for i = 1, 10 do
+            table.insert(servers, {
+                id = "Server_" .. tostring(i),
+                playing = math.random(5, 15)
+            })
+        end
+        
+        table.sort(servers, function(a, b)
+            return a.playing < b.playing
+        end)
+        
+        return servers
+    end
+    
+    return result
 end
 
 -- 获取当前服务器人数
@@ -275,20 +308,38 @@ end
 
 -- 安全切换服务器
 local function safeSwitchServer()
+    updateNotification("正在获取服务器列表...")
     local servers = getServerList()
-    if #servers == 0 then return false end
+    if #servers == 0 then 
+        updateNotification("没有可用服务器")
+        return false 
+    end
     
     local bestServer = servers[1]
     updateNotification("切换到服务器\n玩家数量: " .. bestServer.playing)
     
-    wait(CONFIG.SERVER_HOP_DELAY)
+    task.wait(CONFIG.SERVER_HOP_DELAY)
     
     local success = pcall(function()
-        -- 使用模拟传送（实际使用时需要根据游戏调整）
-        TeleportService:Teleport(game.PlaceId, localPlayer)
+        -- 尝试切换到新服务器
+        TeleportService:TeleportToPlaceInstance(game.PlaceId, bestServer.id, localPlayer)
     end)
     
-    return success
+    if not success then
+        updateNotification("换服失败，尝试备用方法")
+        -- 备用方法：使用传统换服方式
+        success = pcall(function()
+            TeleportService:Teleport(game.PlaceId, localPlayer)
+        end)
+    end
+    
+    if success then
+        -- 更新当前服务器ID
+        currentServerId = bestServer.id
+        return true
+    end
+    
+    return false
 end
 
 -- 执行物品收集流程
@@ -304,80 +355,54 @@ local function executeCollectionRoutine()
     local targetItem = findTargetItem()
     
     if targetItem then
-        updateNotification("找到: " .. targetItem.Name .. "\n传送中...")
+        updateNotification("找到: " .. targetItem.Name .. "\n距离: " .. math.floor((targetItem.Position - humanoidRootPart.Position).Magnitude) .. "米\n传送中...")
         
         if safeTeleportToItem(targetItem) then
             updateNotification("传送成功\n使用E键交互中...")
             
             -- 使用E键交互
             interactWithEKey()
-            updateNotification("E键交互完成\n3秒后换服")
-            wait(CONFIG.ITEM_PICKUP_DELAY)
-            retryCount = 0
+            updateNotification("E键交互完成\n等待换服...")
+            task.wait(CONFIG.ITEM_PICKUP_DELAY)
             return true
         else
-            updateNotification("传送失败\n3秒后换服")
+            updateNotification("传送失败\n等待换服...")
         end
     else
-        updateNotification("未找到物品\n3秒后换服")
+        updateNotification("未找到物品\n等待换服...")
     end
     
-    wait(CONFIG.SERVER_HOP_DELAY)
-    retryCount = retryCount + 1
+    task.wait(CONFIG.SERVER_HOP_DELAY)
     return false
 end
 
 -- 主循环函数
 local function mainLoop()
     createUI()
-    updateNotification("rz自动换服捡物品\n启动成功 - 3秒后开始")
+    updateNotification("rz自动换服捡物品\n启动成功 - 1秒后开始")
     
     print("=== 自动脚本启动 ===")
     print("目标物品: " .. table.concat(TARGET_ITEMS, ", "))
     print("搜索半径: " .. CONFIG.SEARCH_RADIUS)
-    wait(3)
+    task.wait(1)
     
-    while isRunning and retryCount < CONFIG.MAX_RETRY_ATTEMPTS do
+    while isRunning do
         local success, err = pcall(function()
-            if not executeCollectionRoutine() then
-                if not safeSwitchServer() then
-                    updateNotification("换服失败\n" .. CONFIG.RETRY_DELAY .. "秒后重试")
-                    wait(CONFIG.RETRY_DELAY)
-                else
-                    updateNotification("换服成功\n等待加载...")
-                    wait(5) -- 等待新服务器加载
+            -- 执行收集流程
+            local collected = executeCollectionRoutine()
+            
+            -- 无论是否收集到物品，都尝试换服
+            updateNotification("准备换服...")
+            if not safeSwitchServer() then
+                retryCount = retryCount + 1
+                updateNotification("换服失败\n" .. CONFIG.RETRY_DELAY .. "秒后重试")
+                if retryCount >= CONFIG.MAX_RETRY_ATTEMPTS then
+                    updateNotification("达到最大重试次数\n脚本停止")
+                    isRunning = false
+                    return
                 end
-            end
-        end)
-        
-        if not success then
-            updateNotification("错误: " .. tostring(err))
-            wait(CONFIG.RETRY_DELAY)
-        end
-        
-        wait(1)
-    end
-    
-    if retryCount >= CONFIG.MAX_RETRY_ATTEMPTS then
-        updateNotification("达到最大重试次数\n脚本停止")
-    else
-        updateNotification("脚本执行完成")
-    end
-end
-
--- 安全启动
-local function safeStart()
-    local success, err = pcall(mainLoop)
-    if not success then
-        updateNotification("启动错误: " .. tostring(err))
-    end
-end
-
--- 开始执行
-safeStart()
-
--- 导出函数
-return {
-    stop = function() isRunning = false end,
-    config = CONFIG
-}
+                task.wait(CONFIG.RETRY_DELAY)
+            else
+                -- 换服成功，重置重试计数
+                retryCount = 0
+                updateNotification("换服成功\n等待加载...")
