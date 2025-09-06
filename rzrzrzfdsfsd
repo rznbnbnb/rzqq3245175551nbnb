@@ -1,0 +1,383 @@
+-- Ohio 服务器自动采集脚本 - 优化版
+-- 自动换服 → 捡物品 → 换服 → 循环
+
+-- 初始化服务
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+local RunService = game:GetService("RunService")
+local HttpService = game:GetService("HttpService")
+local Workspace = game:GetService("Workspace")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local CoreGui = game:GetService("CoreGui")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+
+-- 本地玩家引用
+local localPlayer = Players.LocalPlayer
+
+-- 配置参数
+local CONFIG = {
+    SEARCH_RADIUS = 2000,          -- 最大搜索半径
+    TELEPORT_DELAY = 0.5,          -- 传送延迟
+    SERVER_HOP_DELAY = 3,          -- 换服延迟
+    ITEM_PICKUP_DELAY = 1,         -- 捡物品后等待时间
+    MAX_RETRY_ATTEMPTS = 5,        -- 最大重试次数
+    RETRY_DELAY = 2,               -- 重试延迟
+    E_KEY_PRESS_DURATION = 0.2,    -- E键按下持续时间
+    E_KEY_PRESS_COUNT = 3          -- E键按下次数
+}
+
+-- 目标物品列表（根据您提供的列表）
+local TARGET_ITEMS = {
+    "Money Printer",
+    "Blue Candy Care",
+    "Bunny Balloon",
+    "Ghost Balloon",
+    "Clover Balloon",
+    "Bat Balloon",
+    "Gold Clover Balloon",
+    "Golden Rose",
+    "Black Rose",
+    "Heart Balloon",
+    "Diamond Ring",
+    "Diamond",
+    "Vivid Gem",
+    "Dark Matter Gem",
+    "Rollie"
+}
+
+-- 状态变量
+local isRunning = true
+local character = nil
+local humanoid = nil
+local humanoidRootPart = nil
+local notificationGui = nil
+local notificationLabel = nil
+local stopButton = nil
+local retryCount = 0
+
+-- 创建UI界面
+local function createUI()
+    if notificationGui and notificationGui.Parent then
+        notificationGui:Destroy()
+    end
+    
+    notificationGui = Instance.new("ScreenGui")
+    notificationGui.Name = "AutoFarmUI"
+    notificationGui.Parent = CoreGui
+    notificationGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    notificationGui.ResetOnSpawn = false
+    
+    -- 通知框架
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0.25, 0, 0.1, 0)
+    frame.Position = UDim2.new(0.7, 0, 0.82, 0)
+    frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    frame.BackgroundTransparency = 0.3
+    frame.BorderSizePixel = 0
+    frame.Parent = notificationGui
+    
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 8)
+    corner.Parent = frame
+    
+    local stroke = Instance.new("UIStroke")
+    stroke.Color = Color3.fromRGB(100, 100, 100)
+    stroke.Thickness = 2
+    stroke.Parent = frame
+    
+    -- 通知标签
+    notificationLabel = Instance.new("TextLabel")
+    notificationLabel.Size = UDim2.new(0.9, 0, 0.7, 0)
+    notificationLabel.Position = UDim2.new(0.05, 0, 0.05, 0)
+    notificationLabel.BackgroundTransparency = 1
+    notificationLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    notificationLabel.TextScaled = false
+    notificationLabel.TextSize = 14
+    notificationLabel.TextWrapped = true
+    notificationLabel.Font = Enum.Font.Gotham
+    notificationLabel.Text = "rz自动换服捡物品启动中..."
+    notificationLabel.TextXAlignment = Enum.TextXAlignment.Left
+    notificationLabel.TextYAlignment = Enum.TextYAlignment.Top
+    notificationLabel.Parent = frame
+    
+    -- 停止按钮框架
+    local buttonFrame = Instance.new("Frame")
+    buttonFrame.Size = UDim2.new(0.8, 0, 0.2, 0)
+    buttonFrame.Position = UDim2.new(0.1, 0, 0.75, 0)
+    buttonFrame.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+    buttonFrame.BackgroundTransparency = 0.2
+    buttonFrame.BorderSizePixel = 0
+    buttonFrame.Parent = frame
+    
+    local buttonCorner = Instance.new("UICorner")
+    buttonCorner.CornerRadius = UDim.new(0, 6)
+    buttonCorner.Parent = buttonFrame
+    
+    -- 停止按钮
+    stopButton = Instance.new("TextButton")
+    stopButton.Size = UDim2.new(1, 0, 1, 0)
+    stopButton.BackgroundTransparency = 1
+    stopButton.Text = "停止脚本"
+    stopButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    stopButton.TextSize = 14
+    stopButton.Font = Enum.Font.GothamBold
+    stopButton.Parent = buttonFrame
+    
+    -- 按钮点击事件
+    stopButton.MouseButton1Click:Connect(function()
+        isRunning = false
+        if notificationLabel then
+            notificationLabel.Text = "脚本已停止"
+        end
+        stopButton.Text = "已停止"
+        stopButton.Active = false
+    end)
+    
+    return notificationGui
+end
+
+-- 更新通知信息
+local function updateNotification(text)
+    if notificationLabel then
+        notificationLabel.Text = tostring(text)
+    end
+end
+
+-- 安全等待角色加载
+local function waitForCharacter()
+    local startTime = tick()
+    while tick() - startTime < 10 and isRunning do
+        if localPlayer.Character then
+            character = localPlayer.Character
+            humanoid = character:FindFirstChildOfClass("Humanoid")
+            humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+            
+            if humanoid and humanoidRootPart and humanoid.Health > 0 then
+                return true
+            end
+        end
+        wait(0.5)
+    end
+    return false
+end
+
+-- 模拟按键按下
+local function simulateKeyPress(keyCode, duration)
+    VirtualInputManager:SendKeyEvent(true, keyCode, false, nil)
+    wait(duration or 0.1)
+    VirtualInputManager:SendKeyEvent(false, keyCode, false, nil)
+end
+
+-- 模拟多次按键
+local function simulateMultipleKeyPress(keyCode, count, delay)
+    for i = 1, count do
+        simulateKeyPress(keyCode, CONFIG.E_KEY_PRESS_DURATION)
+        if delay and delay > 0 then
+            wait(delay)
+        end
+    end
+end
+
+-- 安全传送到物品位置
+local function safeTeleportToItem(item)
+    if not item or not humanoidRootPart then
+        return false
+    end
+    
+    local success = pcall(function()
+        -- 计算安全位置（避免卡在物体内）
+        local offset = Vector3.new(0, 5, 0)
+        local targetPosition = item.Position + offset
+        humanoidRootPart.CFrame = CFrame.new(targetPosition)
+    end)
+    
+    if success then
+        wait(CONFIG.TELEPORT_DELAY)
+        return true
+    end
+    
+    return false
+end
+
+-- 改进的物品查找函数（最大搜索半径）
+local function findTargetItem()
+    if not humanoidRootPart then return nil end
+    
+    local currentPosition = humanoidRootPart.Position
+    local closestItem = nil
+    local closestDistance = CONFIG.SEARCH_RADIUS
+    
+    -- 优先搜索Workspace的直接子级（提高性能）
+    for _, item in ipairs(Workspace:GetChildren()) do
+        if item:IsA("BasePart") or item:IsA("MeshPart") or item:IsA("Part") then
+            for _, targetName in ipairs(TARGET_ITEMS) do
+                if item.Name:lower():find(targetName:lower()) then
+                    local distance = (item.Position - currentPosition).Magnitude
+                    if distance < closestDistance then
+                        closestItem = item
+                        closestDistance = distance
+                    end
+                end
+            end
+        end
+    end
+    
+    -- 如果直接子级没找到，搜索整个工作区
+    if not closestItem then
+        for _, item in ipairs(Workspace:GetDescendants()) do
+            if (item:IsA("BasePart") or item:IsA("MeshPart") or item:IsA("Part")) and item.Name then
+                for _, targetName in ipairs(TARGET_ITEMS) do
+                    if item.Name:lower():find(targetName:lower()) then
+                        local distance = (item.Position - currentPosition).Magnitude
+                        if distance < closestDistance then
+                            closestItem = item
+                            closestDistance = distance
+                        end
+                    end
+                end
+            end
+        end
+    end
+    
+    return closestItem
+end
+
+-- 使用E键交互
+local function interactWithEKey()
+    -- 模拟按下E键多次
+    simulateMultipleKeyPress(Enum.KeyCode.E, CONFIG.E_KEY_PRESS_COUNT, 0.1)
+    return true
+end
+
+-- 获取服务器列表（简化版）
+local function getServerList()
+    -- 使用模拟服务器列表（避免HTTP请求问题）
+    local servers = {}
+    for i = 1, 10 do
+        table.insert(servers, {
+            id = "Server_" .. tostring(i),
+            playing = math.random(5, 25)
+        })
+    end
+    
+    -- 按玩家数量排序
+    table.sort(servers, function(a, b)
+        return a.playing < b.playing
+    end)
+    
+    return servers
+end
+
+-- 获取当前服务器人数
+local function getCurrentServerPlayers()
+    return #Players:GetPlayers()
+end
+
+-- 安全切换服务器
+local function safeSwitchServer()
+    local servers = getServerList()
+    if #servers == 0 then return false end
+    
+    local bestServer = servers[1]
+    updateNotification("切换到服务器\n玩家数量: " .. bestServer.playing)
+    
+    wait(CONFIG.SERVER_HOP_DELAY)
+    
+    local success = pcall(function()
+        -- 使用模拟传送（实际使用时需要根据游戏调整）
+        TeleportService:Teleport(game.PlaceId, localPlayer)
+    end)
+    
+    return success
+end
+
+-- 执行物品收集流程
+local function executeCollectionRoutine()
+    if not waitForCharacter() then
+        updateNotification("角色加载失败")
+        return false
+    end
+    
+    local playerCount = getCurrentServerPlayers()
+    updateNotification("服务器人数: " .. playerCount .. "\n搜索物品中...")
+    
+    local targetItem = findTargetItem()
+    
+    if targetItem then
+        updateNotification("找到: " .. targetItem.Name .. "\n传送中...")
+        
+        if safeTeleportToItem(targetItem) then
+            updateNotification("传送成功\n使用E键交互中...")
+            
+            -- 使用E键交互
+            interactWithEKey()
+            updateNotification("E键交互完成\n3秒后换服")
+            wait(CONFIG.ITEM_PICKUP_DELAY)
+            retryCount = 0
+            return true
+        else
+            updateNotification("传送失败\n3秒后换服")
+        end
+    else
+        updateNotification("未找到物品\n3秒后换服")
+    end
+    
+    wait(CONFIG.SERVER_HOP_DELAY)
+    retryCount = retryCount + 1
+    return false
+end
+
+-- 主循环函数
+local function mainLoop()
+    createUI()
+    updateNotification("rz自动换服捡物品\n启动成功 - 3秒后开始")
+    
+    print("=== 自动脚本启动 ===")
+    print("目标物品: " .. table.concat(TARGET_ITEMS, ", "))
+    print("搜索半径: " .. CONFIG.SEARCH_RADIUS)
+    wait(3)
+    
+    while isRunning and retryCount < CONFIG.MAX_RETRY_ATTEMPTS do
+        local success, err = pcall(function()
+            if not executeCollectionRoutine() then
+                if not safeSwitchServer() then
+                    updateNotification("换服失败\n" .. CONFIG.RETRY_DELAY .. "秒后重试")
+                    wait(CONFIG.RETRY_DELAY)
+                else
+                    updateNotification("换服成功\n等待加载...")
+                    wait(5) -- 等待新服务器加载
+                end
+            end
+        end)
+        
+        if not success then
+            updateNotification("错误: " .. tostring(err))
+            wait(CONFIG.RETRY_DELAY)
+        end
+        
+        wait(1)
+    end
+    
+    if retryCount >= CONFIG.MAX_RETRY_ATTEMPTS then
+        updateNotification("达到最大重试次数\n脚本停止")
+    else
+        updateNotification("脚本执行完成")
+    end
+end
+
+-- 安全启动
+local function safeStart()
+    local success, err = pcall(mainLoop)
+    if not success then
+        updateNotification("启动错误: " .. tostring(err))
+    end
+end
+
+-- 开始执行
+safeStart()
+
+-- 导出函数
+return {
+    stop = function() isRunning = false end,
+    config = CONFIG
+}
