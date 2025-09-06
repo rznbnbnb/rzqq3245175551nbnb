@@ -16,7 +16,7 @@ local localPlayer = Players.LocalPlayer
 local CONFIG = {
     SEARCH_RADIUS = 2000,          -- 最大搜索半径
     TELEPORT_DELAY = 0.5,          -- 传送延迟
-    SERVER_HOP_DELAY = 3,          -- 换服延迟
+    SERVER_HOP_DELAY = 1,          -- 换服延迟
     ITEM_PICKUP_DELAY = 1,         -- 捡物品后等待时间
     MAX_RETRY_ATTEMPTS = 5,        -- 最大重试次数
     RETRY_DELAY = 2,               -- 重试延迟
@@ -379,12 +379,12 @@ end
 -- 主循环函数
 local function mainLoop()
     createUI()
-    updateNotification("rz自动换服捡物品\n启动成功 - 3秒后开始")
+    updateNotification("rz自动换服捡物品\n启动成功 - 1秒后开始")
     
     print("=== 自动脚本启动 ===")
     print("目标物品: " .. table.concat(TARGET_ITEMS, ", "))
     print("搜索半径: " .. CONFIG.SEARCH_RADIUS)
-    task.wait(3)
+    task.wait(1)
     
     while isRunning do
         local success, err = pcall(function()
@@ -406,3 +406,52 @@ local function mainLoop()
                 -- 换服成功，重置重试计数
                 retryCount = 0
                 updateNotification("换服成功\n等待加载...")
+                -- 等待一段时间让新服务器加载
+                task.wait(5)
+                -- 重新初始化角色引用
+                character = nil
+                humanoid = nil
+                humanoidRootPart = nil
+            end
+        end)
+        
+        if not success then
+            updateNotification("发生错误: " .. tostring(err))
+            task.wait(CONFIG.RETRY_DELAY)
+        end
+    end
+end
+
+-- 添加游戏加载完成事件处理
+local function onGameLoaded()
+    -- 等待玩家加载完成
+    while not localPlayer do
+        localPlayer = Players.LocalPlayer
+        task.wait(0.5)
+    end
+    
+    -- 设置换服后自动重新启动脚本
+    TeleportService.LocalPlayerOnTeleport:Connect(function(teleportState)
+        if teleportState == Enum.TeleportState.InProgress then
+            -- 保存当前脚本状态
+            TeleportService:SetTeleportSetting("AutoFarmRunning", true)
+        end
+    end)
+    
+    -- 检查是否是从换服过来的
+    if TeleportService:GetTeleportSetting("AutoFarmRunning") then
+        TeleportService:SetTeleportSetting("AutoFarmRunning", false)
+        task.wait(3) -- 等待角色加载
+        mainLoop()
+    else
+        mainLoop()
+    end
+end
+
+-- 启动脚本
+if game:IsLoaded() then
+    onGameLoaded()
+else
+    game.Loaded:Wait()
+    onGameLoaded()
+end
