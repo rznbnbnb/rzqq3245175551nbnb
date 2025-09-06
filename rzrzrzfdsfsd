@@ -16,7 +16,7 @@ local localPlayer = Players.LocalPlayer
 local CONFIG = {
     SEARCH_RADIUS = 2000,          -- 最大搜索半径
     TELEPORT_DELAY = 0.5,          -- 传送延迟
-    SERVER_HOP_DELAY = 1,          -- 换服延迟
+    SERVER_HOP_DELAY = 3,          -- 换服延迟
     ITEM_PICKUP_DELAY = 1,         -- 捡物品后等待时间
     MAX_RETRY_ATTEMPTS = 5,        -- 最大重试次数
     RETRY_DELAY = 2,               -- 重试延迟
@@ -379,12 +379,12 @@ end
 -- 主循环函数
 local function mainLoop()
     createUI()
-    updateNotification("rz自动换服捡物品\n启动成功 - 1秒后开始")
+    updateNotification("rz自动换服捡物品\n启动成功 - 3秒后开始")
     
     print("=== 自动脚本启动 ===")
     print("目标物品: " .. table.concat(TARGET_ITEMS, ", "))
     print("搜索半径: " .. CONFIG.SEARCH_RADIUS)
-    task.wait(1)
+    task.wait(3)
     
     while isRunning do
         local success, err = pcall(function()
