@@ -1,0 +1,231 @@
+-- 创建RZ控制面板UI
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- 创建主ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "RZControlPanel"
+screenGui.Parent = playerGui
+screenGui.ResetOnSpawn = false
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- 创建主框架
+local mainFrame = Instance.new("Frame")
+mainFrame.Name = "MainFrame"
+mainFrame.Size = UDim2.new(0, 100, 0, 100) -- 约10cm方形
+mainFrame.Position = UDim2.new(0, 20, 0, 20) -- 左上角位置
+mainFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+mainFrame.BorderSizePixel = 0
+mainFrame.ClipsDescendants = true
+mainFrame.Parent = screenGui
+
+-- 添加圆角
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 12)
+uiCorner.Parent = mainFrame
+
+-- 添加轻微阴影效果
+local uiShadow = Instance.new("UIStroke")
+uiShadow.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+uiShadow.Color = Color3.fromRGB(200, 200, 200)
+uiShadow.Thickness = 2
+uiShadow.Parent = mainFrame
+
+-- 创建图标按钮
+local iconButton = Instance.new("ImageButton")
+iconButton.Name = "IconButton"
+iconButton.Size = UDim2.new(1, 0, 1, 0)
+iconButton.Position = UDim2.new(0, 0, 0, 0)
+iconButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+iconButton.BackgroundTransparency = 1
+iconButton.BorderSizePixel = 0
+iconButton.Parent = mainFrame
+
+-- 创建RZ图标（使用文本标签代替图片）
+local rzIcon = Instance.new("TextLabel")
+rzIcon.Name = "RZIcon"
+rzIcon.Size = UDim2.new(0.7, 0, 0.7, 0)
+rzIcon.Position = UDim2.new(0.15, 0, 0.15, 0)
+rzIcon.BackgroundTransparency = 1
+rzIcon.Text = "RZ"
+rzIcon.TextColor3 = Color3.fromRGB(80, 80, 80)
+rzIcon.TextScaled = true
+rzIcon.Font = Enum.Font.GothamBold
+rzIcon.Parent = iconButton
+
+-- 创建内容框架（初始隐藏）
+local contentFrame = Instance.new("Frame")
+contentFrame.Name = "ContentFrame"
+contentFrame.Size = UDim2.new(1, 0, 0, 0)
+contentFrame.Position = UDim2.new(0, 0, 1, 0)
+contentFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+contentFrame.BorderSizePixel = 0
+contentFrame.Parent = mainFrame
+
+local contentCorner = Instance.new("UICorner")
+contentCorner.CornerRadius = UDim.new(0, 12)
+contentCorner.Parent = contentFrame
+
+-- 添加内容框架的阴影
+local contentShadow = Instance.new("UIStroke")
+contentShadow.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+contentShadow.Color = Color3.fromRGB(200, 200, 200)
+contentShadow.Thickness = 2
+contentShadow.Parent = contentFrame
+
+-- 添加示例内容
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, -20, 0, 30)
+title.Position = UDim2.new(0, 10, 0, 10)
+title.BackgroundTransparency = 1
+title.Text = "控制面板"
+title.TextColor3 = Color3.fromRGB(60, 60, 60)
+title.TextScaled = true
+title.Font = Enum.Font.GothamBold
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Parent = contentFrame
+
+local divider = Instance.new("Frame")
+divider.Size = UDim2.new(1, -20, 0, 1)
+divider.Position = UDim2.new(0, 10, 0, 45)
+divider.BackgroundColor3 = Color3.fromRGB(220, 220, 220)
+divider.BorderSizePixel = 0
+divider.Parent = contentFrame
+
+-- 添加示例按钮
+local sampleButton = Instance.new("TextButton")
+sampleButton.Size = UDim2.new(1, -20, 0, 30)
+sampleButton.Position = UDim2.new(0, 10, 0, 55)
+sampleButton.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
+sampleButton.BorderSizePixel = 0
+sampleButton.Text = "示例功能"
+sampleButton.TextColor3 = Color3.fromRGB(60, 60, 60)
+sampleButton.TextSize = 14
+sampleButton.Font = Enum.Font.Gotham
+sampleButton.Parent = contentFrame
+
+local sampleButtonCorner = Instance.new("UICorner")
+sampleButtonCorner.CornerRadius = UDim.new(0, 6)
+sampleButtonCorner.Parent = sampleButton
+
+-- 添加拖动功能
+local dragging = false
+local dragInput, dragStart, startPos
+
+local function update(input)
+    local delta = input.Position - dragStart
+    mainFrame.Position = UDim2.new(
+        startPos.X.Scale, 
+        startPos.X.Offset + delta.X, 
+        startPos.Y.Scale, 
+        startPos.Y.Offset + delta.Y
+    )
+end
+
+iconButton.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = mainFrame.Position
+        
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+iconButton.InputChanged:Connect(function(input)
+    if (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) and dragging then
+        dragInput = input
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        update(input)
+    end
+end)
+
+-- 添加展开/收起功能
+local isExpanded = false
+local tweenInProgress = false
+
+iconButton.MouseButton1Click:Connect(function()
+    if dragging or tweenInProgress then 
+        dragging = false
+        return 
+    end
+    
+    isExpanded = not isExpanded
+    tweenInProgress = true
+    
+    local tweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    
+    if isExpanded then
+        -- 展开内容
+        local tween = TweenService:Create(contentFrame, tweenInfo, {Size = UDim2.new(1, 0, 0, 150)})
+        tween:Play()
+        tween.Completed:Connect(function()
+            tweenInProgress = false
+        end)
+    else
+        -- 收起内容
+        local tween = TweenService:Create(contentFrame, tweenInfo, {Size = UDim2.new(1, 0, 0, 0)})
+        tween:Play()
+        tween.Completed:Connect(function()
+            tweenInProgress = false
+        end)
+    end
+end)
+
+-- 添加悬停效果
+iconButton.MouseEnter:Connect(function()
+    if not dragging then
+        iconButton.BackgroundTransparency = 0.9
+    end
+end)
+
+iconButton.MouseLeave:Connect(function()
+    iconButton.BackgroundTransparency = 1
+end)
+
+-- 添加按钮悬停效果
+sampleButton.MouseEnter:Connect(function()
+    sampleButton.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+end)
+
+sampleButton.MouseLeave:Connect(function()
+    sampleButton.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
+end)
+
+-- 添加按钮点击功能
+sampleButton.MouseButton1Click:Connect(function()
+    print("示例按钮被点击")
+    -- 在这里添加您的功能代码
+end)
+
+-- 确保UI在屏幕边界内
+local function ensureInBounds()
+    local absoluteSize = mainFrame.AbsoluteSize
+    local absolutePosition = mainFrame.AbsolutePosition
+    
+    local viewportSize = workspace.CurrentCamera.ViewportSize
+    
+    local newX = math.clamp(absolutePosition.X, 0, viewportSize.X - absoluteSize.X)
+    local newY = math.clamp(absolutePosition.Y, 0, viewportSize.Y - absoluteSize.Y)
+    
+    if newX ~= absolutePosition.X or newY ~= absolutePosition.Y then
+        mainFrame.Position = UDim2.new(0, newX, 0, newY)
+    end
+end
+
+-- 屏幕尺寸变化时确保UI在边界内
+workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(ensureInBounds)
+ensureInBounds()
